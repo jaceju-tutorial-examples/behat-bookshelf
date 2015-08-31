@@ -48,6 +48,7 @@ class AuthController extends Controller
             'password' => 'required|confirmed|min:6',
         ], [
             'required' => '請輸入帳號與密碼',
+            'unique' => '您所輸入的帳號已經有人申請',
         ]);
     }
 

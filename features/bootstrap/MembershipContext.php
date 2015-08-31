@@ -42,4 +42,16 @@ class MembershipContext extends LaravelContext
     {
         $this->assertPageContainsText($message);
     }
+
+    /**
+     * @Given 帳號 :name :email 已註冊
+     */
+    public function registeredAccount($name, $email)
+    {
+        factory(App\User::class)->create([
+            'name' => $name,
+            'email' => $email,
+            'password' => bcrypt('password'),
+        ]);
+    }
 }
