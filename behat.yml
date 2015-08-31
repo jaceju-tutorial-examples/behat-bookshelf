@@ -1,0 +1,13 @@
+default:
+    extensions:
+        Goez\BehatLaravelExtension:
+        Behat\MinkExtension:
+            default_session: laravel
+            laravel: ~
+    suites:
+        bookshelf:
+            paths:    [ %paths.base%/features/bookshelf ]
+            contexts: [ BookshelfContext ]
+        membership:
+            paths:    [ %paths.base%/features/membership ]
+            contexts: [ MembershipContext ]
