@@ -7,3 +7,7 @@ Feature: 使用者可以註冊帳號
         When 註冊帳號 "Jace Ju" "jaceju@gmail.com"
         Then 登入系統
         And 導向首頁
+
+    Scenario: 使用者註冊未輸入帳號及密碼
+        When 註冊帳號 "" ""
+        Then 頁面出現錯誤訊息 "請輸入帳號與密碼"

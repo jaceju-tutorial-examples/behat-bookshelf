@@ -46,6 +46,8 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
+        ], [
+            'required' => '請輸入帳號與密碼',
         ]);
     }
 

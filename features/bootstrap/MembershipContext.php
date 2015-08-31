@@ -34,4 +34,12 @@ class MembershipContext extends LaravelContext
     {
         $this->assertHomepage();
     }
+
+    /**
+     * @Then 頁面出現錯誤訊息 :message
+     */
+    public function assertPageContainsErrorMessage($message)
+    {
+        $this->assertPageContainsText($message);
+    }
 }

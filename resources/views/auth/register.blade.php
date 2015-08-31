@@ -8,6 +8,8 @@
 
             <h2 class="form-auth-heading">建立帳號</h2>
 
+            @include('partials.errors')
+
             {!! csrf_field() !!}
 
             <!-- Name -->
