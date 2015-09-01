@@ -1,5 +1,6 @@
 <?php
 
+use App\Book;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Goez\BehatLaravelExtension\Context\LaravelContext;
@@ -23,7 +24,17 @@ class BookshelfContext extends LaravelContext
      */
     public function onShelfBooks(TableNode $table)
     {
-        throw new PendingException();
+        $map = [
+            '可借出' => true,
+            '已借出' => false,
+        ];
+
+        foreach ($table as $book) {
+            factory(Book::class)->create([
+                'name' => $book['書籍名稱'],
+                'available' => $map[$book['出借狀況']],
+            ]);
+        }
     }
 
     /**
