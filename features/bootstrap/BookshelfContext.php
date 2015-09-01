@@ -1,6 +1,8 @@
 <?php
 
 use App\Book;
+use App\CheckoutHistory;
+use App\User;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Goez\BehatLaravelExtension\Context\LaravelContext;
@@ -42,7 +44,16 @@ class BookshelfContext extends LaravelContext
      */
     public function bookCheckedOutByUser($bookName, $email)
     {
-        throw new PendingException();
+        $book = Book::where('name', $bookName)->first();
+        $user = User::where('email', $email)->first();
+
+        $book->available = false;
+        $book->save();
+
+        factory(CheckoutHistory::class)->create([
+            'book_id' => $book->id,
+            'user_id' => $user->id,
+        ]);
     }
 
     /**

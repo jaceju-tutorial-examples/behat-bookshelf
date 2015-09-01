@@ -26,3 +26,11 @@ $factory->define(App\Book::class, function (Faker\Generator $faker) {
         'available' => true,
     ];
 });
+
+$factory->define(App\CheckoutHistory::class, function (Faker\Generator $faker) {
+    return [
+        'book_id' => 'factory:' . App\Book::class,
+        'user_id' => 'factory:' . App\User::class,
+        'returned' => false,
+    ];
+});
