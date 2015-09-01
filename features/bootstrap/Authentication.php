@@ -23,4 +23,16 @@ trait Authentication
     {
         $this->assertTrue(Auth::check());
     }
+
+    /**
+     * @param string $email
+     * @param string $password
+     */
+    public function signInAs($email, $password = 'password')
+    {
+        Auth::attempt([
+            'email' => $email,
+            'password' => $password,
+        ]);
+    }
 }

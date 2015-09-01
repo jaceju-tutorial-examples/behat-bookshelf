@@ -13,7 +13,9 @@ class BookshelfContext extends LaravelContext
      */
     public function iHaveLoggedInAs($name, $email)
     {
-        throw new PendingException();
+        $this->registeredAccount($name, $email);
+        $this->signInAs($email);
+        $this->iHaveLoggedIn();
     }
 
     /**
