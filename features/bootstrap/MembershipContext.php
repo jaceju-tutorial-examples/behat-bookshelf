@@ -1,11 +1,11 @@
 <?php
 
-use Behat\Behat\Tester\Exception\PendingException;
 use Goez\BehatLaravelExtension\Context\LaravelContext;
-use Illuminate\Support\Facades\Auth;
 
 class MembershipContext extends LaravelContext
 {
+    use Authentication;
+
     /**
      * @When 註冊帳號 :name :email
      */
@@ -18,14 +18,6 @@ class MembershipContext extends LaravelContext
         $this->fillField('password_confirmation', 'password');
 
         $this->pressButton('註冊');
-    }
-
-    /**
-     * @Then 登入系統
-     */
-    public function iHaveLoggedIn()
-    {
-        $this->assertTrue(Auth::check());
     }
 
     /**
@@ -42,18 +34,6 @@ class MembershipContext extends LaravelContext
     public function assertPageContainsErrorMessage($message)
     {
         $this->assertPageContainsText($message);
-    }
-
-    /**
-     * @Given 帳號 :name :email 已註冊
-     */
-    public function registeredAccount($name, $email)
-    {
-        factory(App\User::class)->create([
-            'name' => $name,
-            'email' => $email,
-            'password' => bcrypt('password'),
-        ]);
     }
 
     /**
