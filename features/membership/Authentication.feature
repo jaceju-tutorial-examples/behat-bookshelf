@@ -13,3 +13,7 @@ Feature: 使用者認證
         Given 帳號 "Jace Ju" "jaceju@example.com" 已註冊
         When 用帳號 "jaceju@example.com" 及密碼 "PASSWORD" 登入系統
         Then 頁面出現錯誤訊息 "登入失敗，帳號或密碼錯誤"
+
+    Scenario: 使用者登入系統，帳號不存在
+        When 用帳號 "jaceju@example.com" 及密碼 "password" 登入系統
+        Then 頁面出現錯誤訊息 "登入失敗，帳號或密碼錯誤"
