@@ -8,3 +8,8 @@ Feature: 使用者認證
         When 用帳號 "jaceju@example.com" 及密碼 "password" 登入系統
         Then 登入系統
         And 導向首頁
+
+    Scenario: 使用者登入系統，輸入密碼錯誤
+        Given 帳號 "Jace Ju" "jaceju@example.com" 已註冊
+        When 用帳號 "jaceju@example.com" 及密碼 "PASSWORD" 登入系統
+        Then 頁面出現錯誤訊息 "登入失敗，帳號或密碼錯誤"

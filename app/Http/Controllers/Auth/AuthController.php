@@ -67,4 +67,9 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    protected function getFailedLoginMessage()
+    {
+        return "登入失敗，帳號或密碼錯誤";
+    }
 }
