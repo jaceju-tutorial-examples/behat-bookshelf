@@ -4,9 +4,7 @@ get('/', function () {
     return view('bookshelf/index');
 });
 
-get('auth/register', function () {
-    return view('auth/register');
-});
+get('auth/register', 'Auth\AuthController@getRegister');
 
 get('auth/login', function () {
     return view('auth/login');

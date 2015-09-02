@@ -10,7 +10,13 @@ class MembershipContext extends LaravelContext
      */
     public function iRegisterAccount($name, $email)
     {
-        throw new PendingException();
+        $this->visit('/auth/register');
+        $this->fillField('name', $name);
+        $this->fillField('email', $email);
+        $this->fillField('password', 'password');
+        $this->fillField('password_confirmation', 'password');
+
+        $this->pressButton('註冊');
     }
 
     /**
