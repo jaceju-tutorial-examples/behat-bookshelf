@@ -1,5 +1,6 @@
 <?php
 
+use Behat\Behat\Tester\Exception\PendingException;
 use App\Book;
 use App\CheckoutHistory;
 use App\User;
@@ -77,5 +78,37 @@ class BookshelfContext extends LaravelContext
             $this->assertElementContainsText($this->getBookSelector($index + 1, 'h3'), $book['書籍名稱']);
             $this->assertElementContainsText($this->getBookSelector($index + 1, 'span'), $book['出借狀況']);
         }
+    }
+
+    /**
+     * @Given 在列表的 :bookName
+     */
+    public function selectBookOnShelf($bookName)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When 點選「借書」按鈕
+     */
+    public function clickCheckoutButton()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then 出借狀況顯示 :statusText
+     */
+    public function expectedStatusText($statusText)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then 顯示「還書」按鈕
+     */
+    public function showReturnButton()
+    {
+        throw new PendingException();
     }
 }

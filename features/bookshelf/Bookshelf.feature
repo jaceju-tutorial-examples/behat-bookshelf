@@ -26,3 +26,9 @@ Feature: 使用者可以借還書籍
             | JavaScript 學習手冊     | 可借出  |
             | 精通 VI               | 已借出  |
             | PHP 聖經              | 可借出  |
+
+    Scenario: 使用者借書
+        Given 在列表的 "HTML5 + CSS3 專用網站設計"
+        When 點選「借書」按鈕
+        Then 出借狀況顯示 "已借出"
+        And 顯示「還書」按鈕
