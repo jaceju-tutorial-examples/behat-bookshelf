@@ -1,8 +1,6 @@
 <?php
 
-get('/', function () {
-    return view('bookshelf/index');
-});
+get('/', 'BookshelfController@index');
 
 get('auth/register', 'Auth\AuthController@getRegister');
 post('auth/register', 'Auth\AuthController@postRegister');

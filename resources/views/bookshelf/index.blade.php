@@ -25,30 +25,22 @@
 
     <div class="container">
         <ul class="list-group">
-            <li class="list-group-item clearfix">
-                <h3 class="pull-left">專案管理實務 <span class="badge alert-success">可借出</span></h3>
-                <button class="btn btn-info pull-right" type="submit">
-                    借書
-                </button>
-            </li>
-            <li class="list-group-item clearfix">
-                <h3 class="pull-left">HTML5 + CSS3 專用網站設計 <span class="badge alert-success">可借出</span></h3>
-                <button class="btn btn-info pull-right" type="submit">借書</button>
-            </li>
-            <li class="list-group-item clearfix">
-                <h3 class="pull-left">JavaScript 學習手冊 <span class="badge alert-success">可借出</span></h3>
 
-                <button class="btn btn-info pull-right" type="submit">借書</button>
-            </li>
-            <li class="list-group-item clearfix">
-                <h3 class="pull-left">精通 VI <span class="badge alert-success">可借出</span></h3>
-                <button class="btn btn-info pull-right" type="submit">借書</button>
-            </li>
-            <li class="list-group-item clearfix">
-                <h3 class="pull-left">PHP 聖經 <span class="badge alert-success">可借出</span></h3>
-                <button class="btn btn-info pull-right" type="submit">借書</button>
-            </li>
+            @foreach($books as $book)
+                <li class="list-group-item clearfix">
+                    @if ($book->available)
+                        <h3 class="pull-left">{{ $book->name }} <span class="badge alert-success">可借出</span></h3>
+                        <button class="btn btn-info pull-right" type="submit">借書</button>
+                    @else
+                        <h3 class="pull-left">{{ $book->name }} <span class="badge alert-danger">已借出</span></h3>
+
+                    @endif
+                </li>
+            @endforeach
         </ul>
+
+        @include('partials.errors')
+
     </div> <!-- /container -->
 
 @stop

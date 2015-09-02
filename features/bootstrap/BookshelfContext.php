@@ -3,7 +3,6 @@
 use App\Book;
 use App\CheckoutHistory;
 use App\User;
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Goez\BehatLaravelExtension\Context\LaravelContext;
 
@@ -61,7 +60,7 @@ class BookshelfContext extends LaravelContext
      */
     public function visitHome()
     {
-        throw new PendingException();
+        $this->visit('/');
     }
 
     /**
@@ -69,6 +68,9 @@ class BookshelfContext extends LaravelContext
      */
     public function booksList(TableNode $table)
     {
-        throw new PendingException();
+        foreach ($table as $index => $book) {
+            $this->assertElementContainsText('ul.list-group li.list-group-item:nth-child(' . ($index + 1) . ') h3', $book['書籍名稱']);
+            $this->assertElementContainsText('ul.list-group li.list-group-item:nth-child(' . ($index + 1) . ') span', $book['出借狀況']);
+        }
     }
 }
