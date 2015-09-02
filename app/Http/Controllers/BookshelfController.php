@@ -18,6 +18,16 @@ class BookshelfController extends Controller
 
     public function checkout(Request $request)
     {
+        $bookId = $request->get('book_id');
+        $book = Book::findOrFail($bookId);
+        /** @var Book $book */
+        $book->available = false;
+        $book->save();
+        $book->checkoutHistories()
+            ->create([
+                'user_id' => Auth::user()->id,
+            ]);
+
         return redirect('/');
     }
 }

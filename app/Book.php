@@ -10,4 +10,12 @@ class Book extends Model
         'name',
         'available',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function checkoutHistories()
+    {
+        return $this->hasMany(CheckoutHistory::class);
+    }
 }

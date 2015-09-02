@@ -137,7 +137,9 @@ class BookshelfContext extends LaravelContext
      */
     public function expectedStatusText($statusText)
     {
-        throw new PendingException();
+        $this->assertPageAddress('/');
+        $index = $this->currentBookIndex;
+        $this->assertElementContainsText($this->getBookSelector($index, 'span'), $statusText);
     }
 
     /**
