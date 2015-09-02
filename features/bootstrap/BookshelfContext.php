@@ -63,14 +63,19 @@ class BookshelfContext extends LaravelContext
         $this->visit('/');
     }
 
+    protected function getBookSelector($index, $child = '')
+    {
+        return 'ul.list-group li.list-group-item:nth-child(' . $index . ') ' . $child;
+    }
+
     /**
      * @Then 顯示書籍清單、出借狀況
      */
     public function booksList(TableNode $table)
     {
         foreach ($table as $index => $book) {
-            $this->assertElementContainsText('ul.list-group li.list-group-item:nth-child(' . ($index + 1) . ') h3', $book['書籍名稱']);
-            $this->assertElementContainsText('ul.list-group li.list-group-item:nth-child(' . ($index + 1) . ') span', $book['出借狀況']);
+            $this->assertElementContainsText($this->getBookSelector($index + 1, 'h3'), $book['書籍名稱']);
+            $this->assertElementContainsText($this->getBookSelector($index + 1, 'span'), $book['出借狀況']);
         }
     }
 }
