@@ -7,9 +7,13 @@
         <form class="form-auth" method="POST" action="/auth/login">
             <h2 class="form-auth-heading">登入</h2>
 
+            @include('partials.errors')
+
+            {!! csrf_field() !!}
+
             <!-- Email -->
             <label for="input-email" class="sr-only">Email</label>
-            <input type="text" name="email" id="input-email" class="form-control input-top" placeholder="Email" autofocus>
+            <input type="text" name="email" id="input-email" class="form-control input-top" placeholder="Email" value="{{ old('email') }}" autofocus>
 
             <!-- Password -->
             <label for="input-password" class="sr-only">密碼</label>

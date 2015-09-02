@@ -1,5 +1,6 @@
 <?php
 
+use Behat\Behat\Tester\Exception\PendingException;
 use Goez\BehatLaravelExtension\Context\LaravelContext;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,5 +54,16 @@ class MembershipContext extends LaravelContext
             'email' => $email,
             'password' => bcrypt('password'),
         ]);
+    }
+
+    /**
+     * @When 用帳號 :email 及密碼 :password 登入系統
+     */
+    public function signIn($email, $password)
+    {
+        $this->visit('/auth/login');
+        $this->fillField('email', $email);
+        $this->fillField('password', $password);
+        $this->pressButton('登入');
     }
 }
