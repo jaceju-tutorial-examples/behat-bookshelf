@@ -128,7 +128,8 @@ class BookshelfContext extends LaravelContext
      */
     public function clickCheckoutButton()
     {
-        throw new PendingException();
+        $button = $this->currentBookNode->findButton('借書');
+        $button->click(); // 一定要可以 submit 的 input 或 button
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 get('/', 'BookshelfController@index');
+post('bookshelf/checkout', 'BookShelfController@checkout');
 
 get('auth/register', 'Auth\AuthController@getRegister');
 post('auth/register', 'Auth\AuthController@postRegister');

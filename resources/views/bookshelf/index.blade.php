@@ -30,7 +30,13 @@
                 <li class="list-group-item clearfix">
                     @if ($book->available)
                         <h3 class="pull-left">{{ $book->name }} <span class="badge alert-success">可借出</span></h3>
-                        <button class="btn btn-info pull-right" type="submit">借書</button>
+                        <form action="/bookshelf/checkout" method="post">
+                            {!! csrf_field() !!}
+                            <input type="hidden" name="book_id" value="{{ $book->id }}">
+                            <button class="btn btn-info pull-right" type="submit">
+                                借書
+                            </button>
+                        </form>
                     @else
                         <h3 class="pull-left">{{ $book->name }} <span class="badge alert-danger">已借出</span></h3>
 
