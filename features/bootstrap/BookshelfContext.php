@@ -12,6 +12,21 @@ class BookshelfContext extends LaravelContext
     use Authentication;
 
     /**
+     * @var array
+     */
+    private $expectedBooks = [];
+
+    /**
+     * @var int
+     */
+    private $currentBookIndex = 0;
+
+    /**
+     * @var \Behat\Mink\Element\NodeElement
+     */
+    private $currentBookNode = null;
+
+    /**
      * @Given 用帳號 :name :email 登入系統
      */
     public function iHaveLoggedInAs($name, $email)
@@ -31,11 +46,17 @@ class BookshelfContext extends LaravelContext
             '已借出' => false,
         ];
 
-        foreach ($table as $book) {
+        foreach ($table as $index => $book) {
             factory(Book::class)->create([
                 'name' => $book['書籍名稱'],
                 'available' => $map[$book['出借狀況']],
             ]);
+
+            $this->expectedBooks[$book['書籍名稱']] = [
+                'index' => $index + 1,
+                'available' => $map[$book['出借狀況']],
+            ];
+            $this->expectedBooks[$index + 1] = $book;
         }
     }
 
@@ -81,11 +102,25 @@ class BookshelfContext extends LaravelContext
     }
 
     /**
+     * @param $bookName
+     * @return \Behat\Mink\Element\NodeElement
+     */
+    protected function getBookNode($bookName)
+    {
+        $index = $this->currentBookIndex = $this->expectedBooks[$bookName]['index'];
+        $this->assertElementContainsText($this->getBookSelector($index, 'h3'), $bookName);
+        return $this->getSession()
+            ->getPage()
+            ->find('css', $this->getBookSelector($index));
+    }
+
+    /**
      * @Given 在列表的 :bookName
      */
     public function selectBookOnShelf($bookName)
     {
-        throw new PendingException();
+        $this->visitHome();
+        $this->currentBookNode = $this->getBookNode($bookName);
     }
 
     /**
