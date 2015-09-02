@@ -8,13 +8,15 @@
 
             <h2 class="form-auth-heading">建立帳號</h2>
 
+            {!! csrf_field() !!}
+
             <!-- Name -->
             <label for="input-name" class="sr-only">姓名</label>
-            <input type="text" name="name" id="input-name" class="form-control input-top" placeholder="姓名" value="" autofocus>
+            <input type="text" name="name" id="input-name" class="form-control input-top" placeholder="姓名" value="{{ old('name') }}" autofocus>
 
             <!-- Email -->
             <label for="input-email" class="sr-only">Email</label>
-            <input type="text" name="email" id="input-email" class="form-control input-top" placeholder="Email" value="" autofocus>
+            <input type="text" name="email" id="input-email" class="form-control input-top" placeholder="Email" value="{{ old('email') }}" autofocus>
 
             <!-- Passowrd -->
             <label for="input-password" class="sr-only">密碼</label>

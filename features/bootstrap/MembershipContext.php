@@ -2,6 +2,7 @@
 
 use Behat\Behat\Tester\Exception\PendingException;
 use Goez\BehatLaravelExtension\Context\LaravelContext;
+use Illuminate\Support\Facades\Auth;
 
 class MembershipContext extends LaravelContext
 {
@@ -24,7 +25,7 @@ class MembershipContext extends LaravelContext
      */
     public function iHaveLoggedIn()
     {
-        throw new PendingException();
+        $this->assertTrue(Auth::check());
     }
 
     /**
