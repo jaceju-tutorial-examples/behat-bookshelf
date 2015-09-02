@@ -39,7 +39,9 @@
                         </form>
                     @else
                         <h3 class="pull-left">{{ $book->name }} <span class="badge alert-danger">已借出</span></h3>
-
+                        <button class="btn btn-warning pull-right" type="submit">
+                            還書
+                        </button>
                     @endif
                 </li>
             @endforeach

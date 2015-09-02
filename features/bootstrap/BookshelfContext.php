@@ -1,6 +1,5 @@
 <?php
 
-use Behat\Behat\Tester\Exception\PendingException;
 use App\Book;
 use App\CheckoutHistory;
 use App\User;
@@ -147,6 +146,7 @@ class BookshelfContext extends LaravelContext
      */
     public function showReturnButton()
     {
-        throw new PendingException();
+        $selector = $this->getBookSelector($this->currentBookIndex, 'button');
+        $this->assertElementContainsText($selector, '還書');
     }
 }
