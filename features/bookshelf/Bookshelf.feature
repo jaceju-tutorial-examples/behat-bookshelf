@@ -32,3 +32,10 @@ Feature: 使用者可以借還書籍
         When 點選「借書」按鈕
         Then 出借狀況顯示 "已借出"
         And 顯示「還書」按鈕
+
+    Scenario: 使用者還書
+        Given 書籍 "PHP 聖經" 已被 "jaceju@gmail.com" 借出
+        And 在列表的 "PHP 聖經"
+        When 點選「還書」按鈕
+        Then 出借狀況顯示 "可借出"
+        And 顯示「借書」按鈕
