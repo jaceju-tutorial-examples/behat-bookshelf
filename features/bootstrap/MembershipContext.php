@@ -1,6 +1,5 @@
 <?php
 
-use Behat\Behat\Tester\Exception\PendingException;
 use Goez\BehatLaravelExtension\Context\LaravelContext;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,6 +32,6 @@ class MembershipContext extends LaravelContext
      */
     public function iBeRedirectedHome()
     {
-        throw new PendingException();
+        $this->assertHomepage();
     }
 }
