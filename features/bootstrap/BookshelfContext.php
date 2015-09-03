@@ -165,6 +165,7 @@ class BookshelfContext extends LaravelContext
      */
     public function showCheckoutButton()
     {
-        throw new PendingException();
+        $selector = $this->getBookSelector($this->currentBookIndex, 'button');
+        $this->assertElementContainsText($selector, '借書');
     }
 }
