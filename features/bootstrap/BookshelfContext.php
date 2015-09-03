@@ -168,4 +168,12 @@ class BookshelfContext extends LaravelContext
         $selector = $this->getBookSelector($this->currentBookIndex, 'button');
         $this->assertElementContainsText($selector, '借書');
     }
+
+    /**
+     * @Then 不顯示「還書」按鈕
+     */
+    public function shouldNotDisplayReturnButton()
+    {
+        $this->assertElementNotOnPage($this->getBookSelector($this->currentBookIndex, 'button'));
+    }
 }

@@ -42,9 +42,11 @@
                         <form action="/bookshelf/return" method="post">
                             {!! csrf_field() !!}
                             <input type="hidden" name="book_id" value="{{ $book->id }}">
+                            @if ($book->checkoutHistories()->ofUser(app('auth')->user()->id)->count() === 1)
                             <button class="btn btn-warning pull-right" type="submit">
                                 還書
                             </button>
+                            @endif
                         </form>
                     @endif
                 </li>
