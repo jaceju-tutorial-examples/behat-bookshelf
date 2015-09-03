@@ -5,13 +5,19 @@ namespace App\Http\Controllers;
 use App\Book;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class BookshelfController extends Controller
 {
-    public function __construct()
+    /**
+     * @var Authenticatable
+     */
+    private $user;
+
+    public function __construct(Authenticatable $user)
     {
         $this->middleware('auth');
+        $this->user = $user;
     }
 
     public function index()
@@ -30,7 +36,7 @@ class BookshelfController extends Controller
         $book->save();
         $book->checkoutHistories()
             ->create([
-                'user_id' => Auth::user()->id,
+                'user_id' => $this->user->id,
             ]);
 
         return redirect('/');
@@ -44,7 +50,7 @@ class BookshelfController extends Controller
         $book->available = true;
         $book->save();
         $checkHistory = $book->checkoutHistories()
-            ->notReturnedByUser(Auth::user()->id)
+            ->notReturnedByUser($this->user->id)
             ->first();
         $checkHistory->returned = true;
         $checkHistory->save();
