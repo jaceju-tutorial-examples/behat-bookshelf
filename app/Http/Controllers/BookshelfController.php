@@ -22,14 +22,38 @@ class BookshelfController extends Controller
 
     public function index()
     {
-        $books = Book::all();
-
+        $books = $this->getAllBooks();
         return view('bookshelf/index', compact('books'));
     }
 
     public function checkout(Request $request)
     {
         $bookId = $request->get('book_id');
+        $this->checkoutBookById($bookId);
+        return redirect('/');
+    }
+
+    public function returnBook(Request $request)
+    {
+        $bookId = $request->get('book_id');
+        $this->returnBookById($bookId);
+        return redirect('/');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getAllBooks()
+    {
+        $books = Book::all();
+        return $books;
+    }
+
+    /**
+     * @param $bookId
+     */
+    public function checkoutBookById($bookId)
+    {
         $book = Book::findOrFail($bookId);
         /** @var Book $book */
         $book->available = false;
@@ -38,13 +62,13 @@ class BookshelfController extends Controller
             ->create([
                 'user_id' => $this->user->id,
             ]);
-
-        return redirect('/');
     }
 
-    public function returnBook(Request $request)
+    /**
+     * @param $bookId
+     */
+    public function returnBookById($bookId)
     {
-        $bookId = $request->get('book_id');
         $book = Book::findOrFail($bookId);
         /** @var Book $book */
         $book->available = true;
@@ -54,7 +78,5 @@ class BookshelfController extends Controller
             ->first();
         $checkHistory->returned = true;
         $checkHistory->save();
-
-        return redirect('/');
     }
 }
