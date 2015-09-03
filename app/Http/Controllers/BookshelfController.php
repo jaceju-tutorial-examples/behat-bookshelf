@@ -30,4 +30,20 @@ class BookshelfController extends Controller
 
         return redirect('/');
     }
+
+    public function returnBook(Request $request)
+    {
+        $bookId = $request->get('book_id');
+        $book = Book::findOrFail($bookId);
+        /** @var Book $book */
+        $book->available = true;
+        $book->save();
+        $checkHistory = $book->checkoutHistories()
+            ->notReturnedByUser(Auth::user()->id)
+            ->first();
+        $checkHistory->returned = true;
+        $checkHistory->save();
+
+        return redirect('/');
+    }
 }
