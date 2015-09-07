@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookshelfController;
 use App\Services\BookshelfService;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 
 class BookshelfControllerTest extends TestCase
 {
@@ -40,5 +41,27 @@ class BookshelfControllerTest extends TestCase
 
         // Assert
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testCheckout()
+    {
+        // Arrange
+        $bookId = 1;
+        $request = Mockery::mock(Request::class);
+        $request->shouldReceive('get')
+            ->once()
+            ->with('book_id')
+            ->andReturn($bookId);
+        $this->service->shouldReceive('checkoutBookById')
+            ->once()
+            ->with($bookId);
+
+        // Act
+        $response = $this->controller->checkout($request);
+
+        // Assert
+        // config/app.php/url
+        $this->assertEquals(302, $response->status());
+        $this->assertEquals('http://localhost', $response->getTargetUrl());
     }
 }
