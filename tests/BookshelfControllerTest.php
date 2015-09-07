@@ -110,4 +110,24 @@ class BookshelfControllerTest extends TestCase
         $this->assertEquals(302, $response->status());
         $this->assertEquals('http://localhost', $response->getTargetUrl());
     }
+
+    /**
+     * @expectedException \Symfony\Component\HttpKernel\Exception\HttpException
+     */
+    public function testReturnBookFail()
+    {
+        // Arrange
+        $bookId = 1;
+        $this->request->shouldReceive('get')
+            ->once()
+            ->with('book_id')
+            ->andReturn($bookId);
+        $this->service->shouldReceive('returnBookById')
+            ->once()
+            ->with($bookId)
+            ->andThrow(ModelNotFoundException::class);
+
+        // Act
+        $this->controller->returnBook($this->request);
+    }
 }

@@ -40,7 +40,11 @@ class BookshelfController extends Controller
     public function returnBook(Request $request)
     {
         $bookId = $request->get('book_id');
-        $this->service->returnBookById($bookId);
+        try {
+            $this->service->returnBookById($bookId);
+        } catch (ModelNotFoundException $e) {
+            abort(500);
+        }
         return redirect('/');
     }
 }
