@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class BookshelfControllerTest extends TestCase
 {
+    protected $request;
+
+    /** @var Mockery\MockInterface */
     protected $service;
 
     protected $controller;
@@ -17,6 +20,7 @@ class BookshelfControllerTest extends TestCase
 
         // 通常 controller 有 constructor 的話，就可以考慮把它放在 setUp 裡
         $this->service = Mockery::mock(BookshelfService::class);
+        $this->request = Mockery::mock(Request::class);
         $this->controller = new BookshelfController($this->service);
     }
 
@@ -47,8 +51,7 @@ class BookshelfControllerTest extends TestCase
     {
         // Arrange
         $bookId = 1;
-        $request = Mockery::mock(Request::class);
-        $request->shouldReceive('get')
+        $this->request->shouldReceive('get')
             ->once()
             ->with('book_id')
             ->andReturn($bookId);
@@ -57,7 +60,7 @@ class BookshelfControllerTest extends TestCase
             ->with($bookId);
 
         // Act
-        $response = $this->controller->checkout($request);
+        $response = $this->controller->checkout($this->request);
 
         // Assert
         // config/app.php/url
@@ -69,8 +72,7 @@ class BookshelfControllerTest extends TestCase
     {
         // Arrange
         $bookId = 1;
-        $request = Mockery::mock(Request::class);
-        $request->shouldReceive('get')
+        $this->request->shouldReceive('get')
             ->once()
             ->with('book_id')
             ->andReturn($bookId);
@@ -79,7 +81,7 @@ class BookshelfControllerTest extends TestCase
             ->with($bookId);
 
         // Act
-        $response = $this->controller->returnBook($request);
+        $response = $this->controller->returnBook($this->request);
 
         // Assert
         // config/app.php/url
