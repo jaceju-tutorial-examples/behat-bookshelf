@@ -2,88 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Book;
-use App\CheckoutHistory;
 use App\Http\Requests;
+use App\Services\BookshelfService;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Auth\Authenticatable;
 
 class BookshelfController extends Controller
 {
     /**
-     * @var Authenticatable
+     * @var BookshelfService
      */
-    private $user;
+    private $service;
 
-    /**
-     * @var Book
-     */
-    private $book;
-
-    public function __construct(Authenticatable $user, Book $book)
+    public function __construct(BookshelfService $service)
     {
         $this->middleware('auth');
-        $this->user = $user;
-        $this->book = $book;
+        $this->service = $service;
     }
 
     public function index()
     {
-        $books = $this->getAllBooks();
+        $books = $this->service->getAllBooks();
         return view('bookshelf/index', compact('books'));
     }
 
     public function checkout(Request $request)
     {
         $bookId = $request->get('book_id');
-        $this->checkoutBookById($bookId);
+        $this->service->checkoutBookById($bookId);
         return redirect('/');
     }
 
     public function returnBook(Request $request)
     {
         $bookId = $request->get('book_id');
-        $this->returnBookById($bookId);
+        $this->service->returnBookById($bookId);
         return redirect('/');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getAllBooks()
-    {
-        $books = $this->book->all();
-        return $books;
-    }
-
-    /**
-     * @param $bookId
-     */
-    public function checkoutBookById($bookId)
-    {
-        $book = $this->book->findOrFail($bookId);
-        /** @var Book $book */
-        $book->available = false;
-        $book->save();
-        $book->checkoutHistories()
-            ->create([
-                'user_id' => $this->user->id,
-            ]);
-    }
-
-    /**
-     * @param $bookId
-     */
-    public function returnBookById($bookId)
-    {
-        $book = $this->book->findOrFail($bookId);
-        /** @var Book $book */
-        $book->available = true;
-        $book->save();
-        $checkHistory = $book->checkoutHistories()
-            ->notReturnedByUser($this->user->id)
-            ->first();
-        $checkHistory->returned = true;
-        $checkHistory->save();
     }
 }
