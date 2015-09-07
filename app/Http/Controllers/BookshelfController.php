@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Book;
+use App\CheckoutHistory;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -14,10 +15,16 @@ class BookshelfController extends Controller
      */
     private $user;
 
-    public function __construct(Authenticatable $user)
+    /**
+     * @var Book
+     */
+    private $book;
+
+    public function __construct(Authenticatable $user, Book $book)
     {
         $this->middleware('auth');
         $this->user = $user;
+        $this->book = $book;
     }
 
     public function index()
@@ -45,7 +52,7 @@ class BookshelfController extends Controller
      */
     public function getAllBooks()
     {
-        $books = Book::all();
+        $books = $this->book->all();
         return $books;
     }
 
@@ -54,7 +61,7 @@ class BookshelfController extends Controller
      */
     public function checkoutBookById($bookId)
     {
-        $book = Book::findOrFail($bookId);
+        $book = $this->book->findOrFail($bookId);
         /** @var Book $book */
         $book->available = false;
         $book->save();
@@ -69,7 +76,7 @@ class BookshelfController extends Controller
      */
     public function returnBookById($bookId)
     {
-        $book = Book::findOrFail($bookId);
+        $book = $this->book->findOrFail($bookId);
         /** @var Book $book */
         $book->available = true;
         $book->save();
