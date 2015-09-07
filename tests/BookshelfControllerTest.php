@@ -64,4 +64,26 @@ class BookshelfControllerTest extends TestCase
         $this->assertEquals(302, $response->status());
         $this->assertEquals('http://localhost', $response->getTargetUrl());
     }
+
+    public function testReturnBook()
+    {
+        // Arrange
+        $bookId = 1;
+        $request = Mockery::mock(Request::class);
+        $request->shouldReceive('get')
+            ->once()
+            ->with('book_id')
+            ->andReturn($bookId);
+        $this->service->shouldReceive('returnBookById')
+            ->once()
+            ->with($bookId);
+
+        // Act
+        $response = $this->controller->returnBook($request);
+
+        // Assert
+        // config/app.php/url
+        $this->assertEquals(302, $response->status());
+        $this->assertEquals('http://localhost', $response->getTargetUrl());
+    }
 }
