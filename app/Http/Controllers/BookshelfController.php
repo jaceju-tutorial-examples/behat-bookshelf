@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Services\BookshelfService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class BookshelfController extends Controller
@@ -28,7 +29,11 @@ class BookshelfController extends Controller
     public function checkout(Request $request)
     {
         $bookId = $request->get('book_id');
-        $this->service->checkoutBookById($bookId);
+        try {
+            $this->service->checkoutBookById($bookId);
+        } catch (ModelNotFoundException $e) {
+            abort(500);
+        }
         return redirect('/');
     }
 
