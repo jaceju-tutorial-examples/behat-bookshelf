@@ -48,4 +48,25 @@ class BookshelfServiceTest extends TestCase
         // Assert
         $this->assertCount(10, $books);
     }
+
+    public function testCheckoutBook()
+    {
+        // Arrange
+        $this->initFixtures();
+        $book = factory(Book::class)->create();
+
+        // Act
+        $this->service->checkoutBookById($book->id);
+
+        // Assert
+        $this->seeInDatabase('books', [
+            'id' => $book->id,
+            'available' => false,
+        ]);
+        $this->seeInDatabase('checkout_histories', [
+            'user_id' => $this->user->id,
+            'book_id' => $book->id,
+            'returned' => false,
+        ]);
+    }
 }
