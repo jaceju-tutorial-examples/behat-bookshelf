@@ -1,6 +1,7 @@
 <?php
 
 use App\Book;
+use App\CheckoutHistory;
 use App\Services\BookshelfService;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -67,6 +68,35 @@ class BookshelfServiceTest extends TestCase
             'user_id' => $this->user->id,
             'book_id' => $book->id,
             'returned' => false,
+        ]);
+    }
+
+    public function testReturnBook()
+    {
+        // Arrange
+        $this->initFixtures();
+        $book = factory(Book::class)->create([
+            'available' => false,
+        ]);
+        $history = factory(CheckoutHistory::class)->create([
+            'user_id' => $this->user->id,
+            'book_id' => $book->id,
+            'returned' => false,
+        ]);
+
+        // Act
+        $this->service->returnBookById($book->id);
+
+        // Assert
+        $this->seeInDatabase('books', [
+            'id' => $book->id,
+            'available' => true,
+        ]);
+        $this->seeInDatabase('checkout_histories', [
+            'id' => $history->id,
+            'user_id' => $this->user->id,
+            'book_id' => $book->id,
+            'returned' => true,
         ]);
     }
 }
