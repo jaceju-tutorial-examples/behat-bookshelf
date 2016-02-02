@@ -360,4 +360,4 @@ try {
 
 在 `BookshelfController::returnBook` 方法上套用同樣的步驟。
 
-下一步：[整合 Travis CI](tips/09-travis-ci.md) 。
+下一步：[整合 Travis CI](./09-travis-ci.md) 。
