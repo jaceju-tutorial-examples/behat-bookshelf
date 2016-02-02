@@ -319,4 +319,4 @@ The text "請輸入帳號與密碼" was not found anywhere in the text of the cu
 
 執行 `behat` 查看結果。
 
-下一步：[登入功能](tips/05-login.md)。
+下一步：[登入功能](./05-login.md)。
