@@ -884,4 +884,4 @@ post('bookshelf/return', 'BookShelfController@returnBook');
 @endif
 ```
 
-下一步：[重構](tips/07-refactoring.md)。
+下一步：[重構](./07-refactoring.md)。
