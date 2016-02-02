@@ -86,4 +86,4 @@ class MembershipContext extends LaravelContext
 }
 ```
 
-下一步：[註冊功能](tips/04-register.md)。
+下一步：[註冊功能](./04-register.md)。
