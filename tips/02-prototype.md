@@ -226,4 +226,4 @@ php artisan serve
 
 用瀏覽器連上 `http://localhost:8000` ，看看畫面是否有如預期。
 
-下一步：[設定專案](tips/03-setup.md)。
+下一步：[設定專案](./03-setup.md)。
