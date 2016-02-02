@@ -112,4 +112,4 @@ post('auth/login', 'Auth\AuthController@postLogin');
 
 執行 `behat` ，應該通過。
 
-下一步：[書籍借閱功能](tips/06-bookshelf.md)。
+下一步：[書籍借閱功能](./06-bookshelf.md)。
