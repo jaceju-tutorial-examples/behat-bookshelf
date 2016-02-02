@@ -213,4 +213,4 @@ $this->service->checkoutBookById($bookId);
 $this->service->returnBookById($bookId);
 ```
 
-下一步：[加入測試](tips/08-testing.md)。
+下一步：[加入測試](./08-testing.md)。
